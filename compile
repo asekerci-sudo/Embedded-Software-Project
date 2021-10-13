@@ -1,0 +1,21 @@
+#! /bin/bash 
+
+# usage: ./compile CMD [e.g. ./compile bazel build test:all
+
+localdir=$(pwd)
+tmpdir=$(pwd)/tmpfolder
+
+echo "mounting local dir: $localdir"
+echo "tmp dir: $tmpdir"
+
+if [[ "$*" == *"test"* ]]
+then
+    echo "testing"
+    suffix=""
+else
+    echo "not testing"
+    suffix="--platforms @AvrToolchain//platforms:ArduinoUno"
+fi
+echo ""
+
+docker run -v $localdir:/app -v $tmpdir:/root/.cache/bazel uniduees/bazel-coverage:latest $@ $suffix

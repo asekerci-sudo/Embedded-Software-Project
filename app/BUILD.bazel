@@ -1,0 +1,13 @@
+load("@AvrToolchain//:helpers.bzl", "default_embedded_binaries")
+load("@AvrToolchain//platforms/cpu_frequency:cpu_frequency.bzl", "cpu_frequency_flag")
+
+default_embedded_binaries(
+    main_files = glob(["*.c"]),
+    copts = cpu_frequency_flag() + ["-Ilibs"],
+    deps = [
+        "//app/setup:Setup",
+        "//:Library",
+        "//libs/bootcamp:HdrOnlyLib",
+        ],
+    uploader = "@AvrToolchain//:avrdude_upload_script",
+)

@@ -1,0 +1,6 @@
+.vscode/
+.clwb/
+bazel-*
+user.bazelrc
+tmpfolder/
+build/
